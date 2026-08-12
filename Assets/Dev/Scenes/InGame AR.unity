@@ -1619,7 +1619,7 @@ MonoBehaviour:
   nextButton: {fileID: 1957966347}
   models:
   - {fileID: 11400000, guid: b897d454a39978e4bae0d69d9e12d31f, type: 2}
-  - {fileID: 11400000, guid: b897d454a39978e4bae0d69d9e12d31f, type: 2}
+  - {fileID: 11400000, guid: e8d5e6eee611a8f40a1fbef170bc6453, type: 2}
 --- !u!1 &1061211498
 GameObject:
   m_ObjectHideFlags: 0

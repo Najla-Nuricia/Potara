@@ -18,26 +18,44 @@ public class ModelSwitcher : MonoBehaviour
     [SerializeField] private Button nextButton;
 
     [Header("Models")]
-    [SerializeField] private List<ModelData> models;
+    [SerializeField] private List<ModelData> models = new List<ModelData>();
 
-    private int currentIndex;
+    private int currentIndex = 0;
     private GameObject currentModel;
 
     private void Awake()
     {
-        previousButton.onClick.AddListener(PreviousModel);
-        nextButton.onClick.AddListener(NextModel);
+        if (previousButton != null)
+            previousButton.onClick.AddListener(PreviousModel);
+
+        if (nextButton != null)
+            nextButton.onClick.AddListener(NextModel);
+    }
+
+    private void OnDestroy()
+    {
+        if (previousButton != null)
+            previousButton.onClick.RemoveListener(PreviousModel);
+
+        if (nextButton != null)
+            nextButton.onClick.RemoveListener(NextModel);
     }
 
     public void Initialize()
     {
         if (models == null || models.Count == 0)
         {
-            Debug.LogWarning("ModelSwitcher: ModelData kosong.");
+            Debug.LogWarning("ModelSwitcher: Tidak ada ModelData.");
             return;
         }
 
+        // Selalu mulai dari model pertama
         currentIndex = 0;
+
+        Debug.Log(
+            $"ModelSwitcher Initialize: {models[0].modelName}"
+        );
+
         ShowCurrentModel();
     }
 
@@ -69,14 +87,28 @@ public class ModelSwitcher : MonoBehaviour
 
     private void ShowCurrentModel()
     {
+        if (models == null || models.Count == 0)
+            return;
+
         ModelData data = models[currentIndex];
 
+        if (data == null)
+        {
+            Debug.LogWarning(
+                $"ModelSwitcher: ModelData pada index {currentIndex} kosong."
+            );
+            return;
+        }
+
+        // Hapus model sebelumnya
         if (currentModel != null)
         {
             Destroy(currentModel);
+            currentModel = null;
         }
 
-        if (data.modelPrefab != null)
+        // Spawn model baru
+        if (data.modelPrefab != null && modelContainer != null)
         {
             currentModel = Instantiate(
                 data.modelPrefab,
@@ -86,8 +118,19 @@ public class ModelSwitcher : MonoBehaviour
             currentModel.transform.localPosition = Vector3.zero;
             currentModel.transform.localRotation = Quaternion.identity;
             currentModel.transform.localScale = Vector3.one;
+
+            Debug.Log(
+                $"Model spawned: {data.modelName}"
+            );
+        }
+        else
+        {
+            Debug.LogWarning(
+                $"ModelSwitcher: Prefab atau ModelContainer kosong untuk {data.modelName}"
+            );
         }
 
+        // Update informasi
         if (modelNameText != null)
             modelNameText.text = data.modelName;
 
@@ -102,9 +145,12 @@ public class ModelSwitcher : MonoBehaviour
 
     private void UpdateNavigationButton()
     {
-        bool hasMultipleModels = models.Count > 1;
+        bool hasMultipleModels = models != null && models.Count > 1;
 
-        previousButton.gameObject.SetActive(hasMultipleModels);
-        nextButton.gameObject.SetActive(hasMultipleModels);
+        if (previousButton != null)
+            previousButton.gameObject.SetActive(hasMultipleModels);
+
+        if (nextButton != null)
+            nextButton.gameObject.SetActive(hasMultipleModels);
     }
 }
