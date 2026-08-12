@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9c9c27ead0346c44fb29a263eccbcbfa, type: 3}
+  m_Name: Telor
+  m_EditorClassIdentifier: Assembly-CSharp::ModelData
+  id: telor
+  modelName: endog
+  category: Protein_Hewani
+  modelPrefab: {fileID: 919132149155446097, guid: a5a251f5fae1a8d4da7d1e8e6a99907e,
+    type: 3}
+  nutritionInfo: telor mah telor aja
+  funFact: ' ikan kembung bermanfaat untuk menjaga kesehatan tubuh secara menyeluruh.'
+  recipes:
+  - recipeName: Ikan kembung asam manis
+    recipeImage: {fileID: 21300000, guid: cb6d92f0c14a7ad4a89684fc57cd8c3d, type: 3}
+    ingredients: tes
+    cookingMethod: tes
+  - recipeName: kan kembung goreng
+    recipeImage: {fileID: 21300000, guid: 39d14a0ed04df3246985fbe17747f81f, type: 3}
+    ingredients: tes123
+    cookingMethod: tes123
